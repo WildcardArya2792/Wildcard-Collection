@@ -1,5 +1,16 @@
 For everyone: This mod needs **Steamodded / smods AND Talisman to properly execute.**
 
+To install the mod:
+
+> Use the green **Code** button and select **Download ZIP**.
+>
+> Unzip the folder, and put the Wildcard Collection folder into your Balatro mods folder.
+>
+> Make sure your file path is ".../Balatro/mods/Wildcard Collection", NOT ".../Balatro/mods/Wildcard Collection/Wildcard Collection"
+>
+> Launch Balatro
+>
+> Now you're playing with power!
 -----------------------------------------------------------------------------------------------------------------------------
 For the mod developers:
 
