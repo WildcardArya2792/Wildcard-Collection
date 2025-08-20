@@ -24,4 +24,4 @@ Let this mod help you join the ranks of Balatro modding. Look in the code (Lua f
 -----------------------------------------------------------------------------------------------------------------------------
 
 Additional note:
-Using this mod, in part or whole, to train or assist any artificial intelligence, such as Copilot, ChatGPT, or thereof is strictly prohibited by both The Wildcard Initiative and mod developer Arya. Legal action will be threaten / taken if you are found in violation.
+Using this mod, in part or whole, to train or assist any artificial intelligence, such as Copilot, ChatGPT, or thereof is strictly prohibited by both The Wildcard Initiative and mod developer Arya. Legal action will be threatened / taken if you are found in violation.
