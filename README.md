@@ -1,12 +1,19 @@
-For everyone: This mod needs **Steamodded / smods AND Talisman to properly execute.**
+Mod requirements:
 
+**SMODS / Steamodded (Version 0827 or newer)**
+
+**LOVELY Injector (0.8.0 or newer preferred)**
+
+**Talisman (Plausibly. You can maybe get away with running this mod without it.)**
+
+-----------------------------------------------------------------------------------------------------------------------------
 To install the mod:
 
 > Use the green **Code** button and select **Download ZIP**.
 >
 > Unzip the folder, and put the Wildcard Collection folder into your Balatro mods folder.
 >
-> Make sure your file path is ".../Balatro/mods/Wildcard Collection", NOT ".../Balatro/mods/Wildcard Collection/Wildcard Collection"
+> Make sure your file path is **".../Balatro/mods/Wildcard Collection"**, NOT **".../Balatro/mods/Wildcard Collection/Wildcard Collection"**
 >
 > Launch Balatro
 >
@@ -24,4 +31,4 @@ Let this mod help you join the ranks of Balatro modding. Look in the code (Lua f
 -----------------------------------------------------------------------------------------------------------------------------
 
 Additional note:
-Using this mod, in part or whole, to train or assist any artificial intelligence, such as Copilot, ChatGPT, or thereof is strictly prohibited by both The Wildcard Initiative and mod developer Arya. Legal action will be threatened / taken if you are found in violation.
+Using this mod, in part or whole, to train or assist any artificial intelligence, such as Copilot, ChatGPT, or thereof is strictly prohibited by both The Wildcard Initiative and mod developer Arya. Legal action will be threatened / taken if you are found in violation. See the LICENSE for further explanation.
