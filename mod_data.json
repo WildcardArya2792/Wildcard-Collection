@@ -7,7 +7,7 @@
     "main_file": "wildcard_code.lua",
     "badge_colour": "7800FF",
     "dependencies": [
-        "Steamodded (>=1.0.0~BETA-0711a)"
+        "Steamodded (>=1.0.0~BETA-0827)"
     ],
-    "version": "2.7.92-DEDSEC"
+    "version": "2.7.92-BonusQuips"
 }

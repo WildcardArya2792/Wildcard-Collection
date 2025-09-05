@@ -200,3 +200,99 @@ SMODS.Consumable({
 		end
 	end,
 })
+
+-- Spectrals above, other shit below!
+
+SMODS.ConsumableType{
+  key = 'specialist_gems',
+  primary_colour = HEX("7800FF"),
+  secondary_colour = HEX("7800FF"),
+  loc_txt = {
+    name = 'Specialist Gem',
+    collection = 'Specialist Gems',
+  },
+}
+
+SMODS.Atlas{
+  key = 'gem_delta',
+  path = 'gem_delta.png',
+  px = 71,
+  py = 95
+}
+
+SMODS.Consumable{
+  key = 'gem_delta',
+  set = 'specialist_gems',
+  loc_txt = {
+    name = 'Gem Of Rapid Growth',
+    text = {
+      'Select up to {C:attention}3{} cards',
+      'to become {C:attention}Focused{}.'
+    }
+  },
+  cost = 3,
+  discovered = true,
+  atlas = 'gem_delta',
+  pos = {x = 0, y = 0},
+  config = { max_highlighted = 3, mod_conv = 'm_WCCO_delta_enhancement' },
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
+    return { vars = { card.ability.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv } } }
+	end
+}
+
+SMODS.Atlas{
+  key = 'gem_arya',
+  path = 'gem_arya.png',
+  px = 71,
+  py = 95
+}
+
+SMODS.Consumable{
+  key = 'gem_arya',
+  set = 'specialist_gems',
+  loc_txt = {
+    name = 'Gem Of Deep Peace',
+    text = {
+      'Select up to {C:attention}3{} cards',
+      'to become {C:attention}Tranced{}.'
+    }
+  },
+  cost = 3,
+  discovered = true,
+  atlas = 'gem_arya',
+  pos = {x = 0, y = 0},
+  config = { max_highlighted = 3, mod_conv = 'm_WCCO_arya_enhancement' },
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
+    return { vars = { card.ability.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv } } }
+	end
+}
+
+SMODS.Atlas{
+  key = 'gem_ember',
+  path = 'gem_ember.png',
+  px = 71,
+  py = 95
+}
+
+SMODS.Consumable{
+  key = 'gem_ember',
+  set = 'specialist_gems',
+  loc_txt = {
+    name = 'Gem Of Unwavering Fight',
+    text = {
+      'Select up to {C:attention}3{} cards',
+      'to become {C:attention}Enraged{}.'
+    }
+  },
+  cost = 3,
+  discovered = true,
+  atlas = 'gem_ember',
+  pos = {x = 0, y = 0},
+  config = { max_highlighted = 3, mod_conv = 'm_WCCO_ember_enhancement' },
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
+    return { vars = { card.ability.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv } } }
+	end
+}
