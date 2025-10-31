@@ -1,5 +1,3 @@
---- Ok, game time.
-
 local rainbow_gradient = SMODS.Gradient { 
   key = "rarity_gradient",
   colours = { 
@@ -19,6 +17,14 @@ SMODS.Rarity {
     name = "Wildcard Agent"
   },
   badge_colour = rainbow_gradient
+}
+
+SMODS.Rarity {
+  key = "cursed_rarity",
+  loc_txt = {
+    name = "Shadow Self"
+  },
+  badge_colour = HEX('000000')
 }
 
 ----- JOKER CODE -----
@@ -889,3 +895,151 @@ SMODS.Joker {
   end
 }
 
+-- Arya, Mistress Of Misfortune (Cursed Rarity)
+
+SMODS.Atlas {
+  key = "cursed_arya",
+  path = "cursed_arya.png",
+  px = 71,
+  py = 95
+}
+
+SMODS.Joker {
+  key = 'cursed_arya',
+  loc_txt = {
+    name = 'Arya, Mistress Of Misfortune',
+    text = {
+      "Gains {C:mult}#2#{} {C:mult}Mult{}",
+      "for every {C:attention}scored card that is NOT an Ace or 7{}.",
+      "{C:inactive} (Current Mult:{} {C:mult}#1#{} {C:inactive}Mult){}"
+    }
+  },
+  config = { extra = { mult = 0, mult_loss = -1 } },
+  rarity = "WCCO_cursed_rarity",
+  discovered = true,
+  cost = 20,
+  atlas = 'cursed_arya',
+  blueprint_compat = true,
+  in_pool = function(self)
+    return false
+  end,
+  loc_vars = function(self, info_queue, card)
+    return { vars = { card.ability.extra.mult, card.ability.extra.mult_loss } }
+  end,
+  calculate = function(self, card, context)
+    if context.joker_main then
+      return {
+        mult_mod = card.ability.extra.mult,
+        message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } }
+      }
+    end
+    if context.cardarea == G.play and context.other_card and not (context.other_card:get_id() == 14 or context.other_card:get_id() == 7) and not context.repetition then
+      card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_loss
+      return {
+        message = 'Mult Lost!',
+        colour = G.C.XMULT,
+        card = card
+      }
+    end
+  end
+}
+
+-- Ember, Eternally Spiteful Energy
+
+SMODS.Atlas {
+  key = "cursed_ember",
+  path = "cursed_ember.png",
+  px = 71,
+  py = 95
+}
+
+SMODS.Joker {
+  key = 'cursed_ember',
+  loc_txt = {
+    name = 'Ember, Eternally Spiteful',
+    text = {
+      "If {C:attention}scored hand does NOT consist of only{}",
+      "{C:hearts}Heart{} cards, {X:mult,C:white}x#1#{} {C:mult}Mult{}."
+    }
+  },
+  config = { extra = { x_mult = 0 } },
+  rarity = "WCCO_cursed_rarity",
+  discovered = true,
+  cost = 20,
+  atlas = 'cursed_ember',
+  blueprint_compat = true,
+  in_pool = function(self)
+    return false
+  end,
+  loc_vars = function(self, info_queue, card)
+    return { vars = { card.ability.extra.x_mult} }
+  end,
+  calculate = function(self, card, context)
+    local oops_only_hearts = true
+    if context.joker_main then
+      for k, v in pairs(context.scoring_hand) do
+        if not v:is_suit("Hearts") and not context.repetition then
+          oops_only_hearts = false
+        end
+      end
+      if (oops_only_hearts == false) then
+        return {
+          Xmult_mod = card.ability.extra.x_mult
+        }
+      else 
+        return {
+          message = 'Love Is Love!',
+          colour = G.C.XMULT
+        }
+      end
+    end
+  end
+}
+
+SMODS.Atlas {
+  key = "cursed_delta",
+  path = "cursed_delta.png",
+  px = 71,
+  py = 95
+}
+
+SMODS.Joker {
+  key = 'cursed_delta',
+  loc_txt = {
+    name = 'Delta, The Devoid Spirit',
+    text = {
+      "{C:attention}+50% Blind Requirement{},",
+      "{C:blue}-#2# hands{} and {C:red}-#1# discard{}."
+    }
+  },
+  rarity = "WCCO_cursed_rarity",
+  discovered = true,
+  cost = 20,
+  atlas = 'cursed_delta',
+  config = { extra = { hands = 2, d_size = 1 } },
+  blueprint_compat = true,
+  in_pool = function(self)
+    return false
+  end,
+  loc_vars = function(self, info_queue, card)
+    return { vars = { card.ability.extra.d_size, card.ability.extra.hands } }
+  end,
+  add_to_deck = function(self, card, from_debuff)
+    G.GAME.round_resets.discards = G.GAME.round_resets.discards - card.ability.extra.d_size
+    G.GAME.round_resets.hands = G.GAME.round_resets.hands - card.ability.extra.hands
+    ease_hands_played(-card.ability.extra.hands)
+    ease_discard(-card.ability.extra.d_size)
+  end,
+  calculate = function(self, card, context)
+    if context.setting_blind and context.main_eval then
+      G.E_MANAGER:add_event(Event({
+        blocking = false,
+        func = function()
+          G.GAME.blind.chips = math.floor(G.GAME.blind.chips + G.GAME.blind.chips * 0.5)
+          G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+          return true
+        end
+      }))
+    end
+  end
+}

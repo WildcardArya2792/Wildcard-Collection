@@ -84,13 +84,19 @@ SMODS.Back {
         name = 'Broken Baron Deck',
         text = {
             "I don't even need to explain it.",
-            "You're already gonna win. Trust me."
+            "You're already gonna win. Trust me.",
+            "{C:attention}#1# Joker slots.{}"
         }
     },
+    config = {joker_slots = -2 },
+    loc_vars = function(self, info_queue, back)
+      return { vars = { self.config.joker_slots } }
+    end,
     pos = { x = 0, y = 0 },
     unlocked = true,
     atlas = "streamerclickbaitdeck",
     apply = function(self, back)
+      G.GAME.starting_params.joker_slots = G.GAME.starting_params.joker_slots + self.config.joker_slots
         G.E_MANAGER:add_event(Event({
             func = function()
                 for k, v in pairs(G.playing_cards) do
@@ -98,9 +104,9 @@ SMODS.Back {
                     SMODS.change_base(v, nil, "King")
                   end
                 end
-                SMODS.add_card{ key = "j_blueprint", stickers = { "eternal" } }
-                SMODS.add_card{ key = "j_baron", stickers = { "eternal" } }
-                SMODS.add_card{ key = "j_brainstorm", stickers = { "eternal" } }
+                SMODS.add_card{ key = "j_blueprint", stickers = { "eternal" }, force_stickers = true }
+                SMODS.add_card{ key = "j_baron", stickers = { "eternal" }, force_stickers = true }
+                SMODS.add_card{ key = "j_brainstorm", stickers = { "eternal" }, force_stickers = true }
                 return true
             end
         }))
@@ -142,4 +148,44 @@ SMODS.Back {
             end
         }))
     end
+}
+
+SMODS.Atlas {
+  key = "upgraded_deck",
+  path = "upgraded_deck.png",
+  px = 71,
+  py = 95
+}
+
+SMODS.Back {
+  key = "upgraded_deck",
+  path = "upgraded_deck.png",
+  loc_txt = {
+    name = "Upgraded Deck",
+    text = {
+      "{C:attention}All cards start with a random{}",
+      "{C:attention}Wildcard Collection enhancement.{}",
+      "{C:inactive}i.e: Enraged, Focused, Tranced.{}"
+    }
+  },
+  pos = { x = 0, y = 0 },
+  unlocked = true,
+  atlas = "upgraded_deck",
+  apply = function(self, back)
+    G.E_MANAGER:add_event(Event({
+      func = function()
+        local random_enhancement = pseudorandom(pseudoseed('Upgraded Deck'))
+        for k, v in pairs(G.playing_cards) do
+          if random_enhancement <= 0.33 then
+            v:set_ability("m_WCCO_arya_enhancement")
+          elseif random_enhancement <= 0.66 then
+            v:set_ability("m_WCCO_ember_enhancement")
+          else
+            v:set_ability("m_WCCO_delta_enhancement")
+          end
+        end
+        return true
+      end
+    }))
+  end
 }

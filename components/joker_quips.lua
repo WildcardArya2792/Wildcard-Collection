@@ -205,3 +205,65 @@ SMODS.JimboQuip ({
 	    end
     end
 })
+
+--- Cursed Joker Wins / Losses --- 
+
+SMODS.JimboQuip ({
+	key = 'shadow_arya_win',
+	type = 'win',
+    filter = function(self, type)
+	    if next(SMODS.find_card('j_WCCO_cursed_arya')) then
+		    return true, {weight = 100}
+	    end
+    end
+})
+
+SMODS.JimboQuip ({
+	key = 'shadow_arya_loss',
+	type = 'loss',
+    filter = function(self, type)
+	    if next(SMODS.find_card('j_WCCO_cursed_arya')) then
+		    return true, {weight = 100}
+	    end
+    end
+})
+
+SMODS.JimboQuip ({
+	key = 'shadow_ember_win',
+	type = 'win',
+    filter = function(self, type)
+	    if next(SMODS.find_card('j_WCCO_cursed_ember')) then
+		    return true, {weight = 100}
+	    end
+    end
+})
+
+SMODS.JimboQuip ({
+	key = 'shadow_ember_loss',
+	type = 'loss',
+    filter = function(self, type)
+	    if next(SMODS.find_card('j_WCCO_cursed_ember')) then
+		    return true, {weight = 100}
+	    end
+    end
+})
+
+SMODS.JimboQuip ({
+	key = 'shadow_delta_win',
+	type = 'win',
+    filter = function(self, type)
+	    if next(SMODS.find_card('j_WCCO_cursed_delta')) then
+		    return true, {weight = 100}
+	    end
+    end
+})
+
+SMODS.JimboQuip ({
+	key = 'shadow_delta_loss',
+	type = 'loss',
+    filter = function(self, type)
+	    if next(SMODS.find_card('j_WCCO_cursed_delta')) then
+		    return true, {weight = 100}
+	    end
+    end
+})

@@ -1,0 +1,29 @@
+[manifest]
+version = "0.1.0"
+priority = 0
+
+
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''
+function create_UIBox_blind_select()
+'''
+position = "after"
+payload = '''
+local boss_reroll_cost = G.GAME.EL_HORSO or 10
+'''
+match_indent = true
+
+
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''
+UIBox_button({label = {localize('b_reroll_boss'), localize('$')..'10'}, button = "reroll_boss", func = 'reroll_boss_button'}) or nil
+'''
+position = "at"
+payload = '''
+UIBox_button({label = {localize('b_reroll_boss'), localize('$')..tostring(boss_reroll_cost)}, button = "reroll_boss", func = 'reroll_boss_button'}) or nil
+'''
+match_indent = true

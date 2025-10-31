@@ -88,6 +88,32 @@ return {
                 "In every other timeline, you",
                 "would have won that blind!"
             },
+            WCCO_shadow_arya_win = { 
+                "I see now that the circumstances",
+                "of one's birth is irrelevent.",
+                "It is what you do with the gift of life",
+                "that determines who you are."
+            },
+            WCCO_shadow_arya_loss = { 
+                "How could you be an ideal gambler",
+                "when you were never lucky to begin with?"
+            },
+            WCCO_shadow_ember_win = { 
+                "Let your heart roam free.",
+                "Do not be afraid to love."
+            },
+            WCCO_shadow_ember_loss = { 
+                "You can't love another until you",
+                "learn how to love yourself..."
+            },
+            WCCO_shadow_delta_win = { 
+                "Even with a soul devoid of all life,",
+                "the body still perseveres..."
+            },
+            WCCO_shadow_delta_loss = { 
+                "Those with no reason to persist lose",
+                "themselves in their mania of sorrow..."
+            },
         }
     },
 }

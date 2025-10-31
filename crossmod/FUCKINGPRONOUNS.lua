@@ -158,6 +158,69 @@ SMODS.Joker:take_ownership('WCCO_gap_split_idol', -- object key (class prefix no
     true -- silent | suppresses mod badge
 )
 
+SMODS.Consumable:take_ownership('WCCO_spectral_summonarya',
+    {
+        pronouns = "she_her"
+    },
+    true
+)
+
+SMODS.Consumable:take_ownership('WCCO_spectral_summonember',
+    {
+        pronouns = "yuri" -- You asked.
+    },
+    true
+)
+
+SMODS.Consumable:take_ownership('WCCO_spectral_summondelta',
+    {
+        pronouns = "he_him"
+    },
+    true
+)
+
+SMODS.Consumable:take_ownership('WCCO_gem_delta',
+    {
+        pronouns = "he_him"
+    },
+    true
+)
+
+SMODS.Consumable:take_ownership('WCCO_gem_ember',
+    {
+        pronouns = "she_her"
+    },
+    true
+)
+
+SMODS.Consumable:take_ownership('WCCO_gem_arya',
+    {
+        pronouns = "she_her"
+    },
+    true
+)
+
+SMODS.Enhancement:take_ownership('WCCO_arya_enhancement',
+    {
+        pronouns = "she_her"
+    },
+    true
+)
+
+SMODS.Enhancement:take_ownership('WCCO_ember_enhancement',
+    {
+        pronouns = "she_her"
+    },
+    true
+)
+
+SMODS.Enhancement:take_ownership('WCCO_delta_enhancement',
+    {
+        pronouns = "he_him"
+    },
+    true
+)
+
 -- Just pure stupidity. These just get added into the pool. --
 
 CardPronouns.Pronoun {
