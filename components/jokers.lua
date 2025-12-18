@@ -1,3 +1,5 @@
+--- Ok, game time.
+
 local rainbow_gradient = SMODS.Gradient { 
   key = "rarity_gradient",
   colours = { 

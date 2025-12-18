@@ -10,8 +10,8 @@ SMODS.Back {
     loc_txt = {
         name = "Musician's Deck",
         text = {
-            "{C:attention}Start with an Eternal Album Joker.{}",
-            "{C:inactive}Requires both Album mods!{}"
+            "{C:attention}Start with an Eternal Negative Album Joker.{}",
+            "{C:inactive}Any Albums mod works!{}"
         }
     },
     pos = { x = 0, y = 0 },
@@ -27,7 +27,7 @@ SMODS.Back {
                     end
                 end
                 local joker = pseudorandom_element(jokers, 'Musical Chairs')
-                SMODS.add_card{ key = joker, stickers = { "eternal" }, force_stickers = true } 
+                SMODS.add_card{ key = joker, stickers = { "eternal" }, edition = "e_negative" , force_stickers = true } 
                 return true
             end
         }))
