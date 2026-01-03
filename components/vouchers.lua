@@ -198,7 +198,7 @@ SMODS.Voucher {
     atlas = "tier_3_vouchers",
     pos = { x = 6, y = 0 },
     cost = 25,
-    config = { extra = { hands = 2 } },
+    config = { extra = { hands = 3 } },
     requires = { 'v_nacho_tong' },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.hands } }
