@@ -1,5 +1,3 @@
---- Ok, game time.
-
 local rainbow_gradient = SMODS.Gradient { 
   key = "rarity_gradient",
   colours = { 
@@ -29,6 +27,26 @@ SMODS.Rarity {
   badge_colour = HEX('000000')
 }
 
+local crossover_rarity = SMODS.Gradient { 
+  key = "rarity_crossover",
+  colours = { 
+    HEX('00FFFF'), -- https://www.youtube.com/watch?v=KSoCld6kVKE
+    HEX('FF00FF'),
+    HEX('FFFFFF'),
+    HEX('FF00FF'),
+    HEX('00FFFF'),
+  },
+  cycle = 5
+}
+
+SMODS.Rarity {
+  key = "crossover_rarity",
+  loc_txt = {
+    name = "Crossover Exclusive"
+  },
+  badge_colour = crossover_rarity
+}
+
 ----- JOKER CODE -----
 
 -- Arya (Common)
@@ -52,6 +70,7 @@ SMODS.Joker {
     },
     config = { extra = { chips = 7, mult = 7 } },
     rarity = 1,
+    discovered = true,
     atlas = 'common_arya',
     blueprint_compat = true,
     pos = { x = 0, y = 0 },
@@ -95,6 +114,7 @@ SMODS.Joker {
   },
   config = { extra = { odds = 7 } },
   rarity = 2,
+  discovered = true,
   atlas = 'uncommon_arya',
   pos = { x = 0, y = 0 },
   blueprint_compat = true,
@@ -142,6 +162,7 @@ SMODS.Joker {
   config = { extra = { Xmult_mod = temp_Mult, odds = 5 } },
   rarity = 3,
   atlas = 'rare_arya',
+  discovered = true,
   blueprint_compat = true,
   pos = { x = 0, y = 0 },
   cost = 9,
@@ -223,6 +244,7 @@ SMODS.Joker {
   rarity = 4,
   cost = 20,
   atlas = 'legendary_arya',
+  discovered = true,
   blueprint_compat = true,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.x_mult, card.ability.extra.x_mult_gain } }
@@ -336,6 +358,7 @@ SMODS.Joker {
   },
   config = { extra = { mult = 0, mult_gain = 1 } },
   rarity = 1,
+  discovered = true,
   cost = 5,
   atlas = 'common_ember',
   blueprint_compat = true,
@@ -381,6 +404,7 @@ SMODS.Joker {
   },
   config = { extra = { odds = 5 } },
   rarity = 2,
+  discovered = true,
   atlas = 'uncommon_ember',
   pos = { x = 0, y = 0 },
   blueprint_compat = true,
@@ -428,6 +452,7 @@ SMODS.Joker {
   config = { extra = { mult = 0, mult_gain = 10 } },
   rarity = 3,
   cost = 9,
+  discovered = true,
   atlas = 'rare_ember',
   blueprint_compat = true,
   loc_vars = function(self, info_queue, card)
@@ -474,6 +499,7 @@ SMODS.Joker {
   config = { extra = { perma_mult = 20 } },
   rarity = 4,
   cost = 10,
+  discovered = true,
   blueprint_compat = true,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.mult, card.ability.extra.mult_gain } }
@@ -706,7 +732,6 @@ SMODS.Joker {
   rarity = 'WCCO_wc_rarity',
   atlas = 'not_every_geek_has_a_commodore_64',
   blueprint_compat = true,
-  discovered = true,
   pos = { x = 0, y = 0 },
   soul_pos = { x = 1, y = 0 },
   cost = 1000, -- This is meant to deter people from using Equilibrium Deck to grab this.
@@ -747,17 +772,16 @@ SMODS.Joker {
     name = "Culpable Scapegoat",
     text = {
       'Prevents {C:attention}death{} once before {C:attention}self-destructing.{}',
-      "{C:enhanced}''I'm existing out of spite...''{}",
-      "{C:inactive}Found in the GHOST & Pals Booster Pack!{}"
+      "{C:inactive}Part of the GHOST and Pals Subpack!{}"
     }
   },
-  rarity = 2,
+  rarity = 'WCCO_crossover_rarity',
   atlas = 'gap_scapegoat_texture',
   blueprint_compat = false,
   eternal_compat = false,
   pos = { x = 0, y = 0 },
-  in_pool = function(self)
-    return false
+  in_pool = function(self, args)
+    return not args or args.source ~= "sho"
   end,
   calculate = function(self, card, context)
     if context.end_of_round and context.game_over and context.main_eval then
@@ -793,10 +817,10 @@ SMODS.Joker {
     text = {
       "{C:green}#1# in #2# chance{} to",
       "{C:attention}destroy discarded cards.{}",
-      "{C:inactive}Found in the GHOST & Pals Booster Pack!{}"
+      "{C:inactive}Part of the GHOST and Pals Subpack!{}"
     }
   },
-  rarity = 2,
+  rarity = 'WCCO_crossover_rarity',
   atlas = 'gap_distortionist',
   blueprint_compat = false,
   pos = { x = 0, y = 0 },
@@ -806,8 +830,8 @@ SMODS.Joker {
     return {vars = {numerGAP_Distortionist, denomGAP_Distortionist } }
     -- return { vars = { (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
   end,
-  in_pool = function(self)
-    return false
+  in_pool = function(self, args)
+    return not args or args.source ~= "sho"
   end,
   calculate = function(self, card, context)
     if context.pre_discard then
@@ -841,15 +865,15 @@ SMODS.Joker {
       "Spawns a {C:attention}random consumable{}",
       "when {C:attention}hand is played.{}",
       "{C:inactive}(Must have room!){}",
-      "{C:inactive}Found in the GHOST & Pals Booster Pack!{}"
+      "{C:inactive}Part of the GHOST and Pals Subpack!{}"
     }
   },
-  rarity = 2,
+  rarity = 'WCCO_crossover_rarity',
   atlas = 'gap_aura',
   blueprint_compat = false,
   pos = { x = 0, y = 0 },
-  in_pool = function(self)
-    return false
+  in_pool = function(self, args)
+    return not args or args.source ~= "sho"
   end,
   calculate = function(self, card, context)
     if context.before and (#G.consumeables.cards + 1 <= G.consumeables.config.card_limit) then
@@ -873,10 +897,10 @@ SMODS.Joker {
     text = {
       "{C:green}#1# in #2# chance{} to {C:attention}enhance played cards.{}",
       "{C:attention}(All Enhancements can be applied.){}",
-      "{C:inactive}Found in the GHOST & Pals Booster Pack!{}"
+      "{C:inactive}Part of the GHOST and Pals Subpack!{}"
     }
   },
-  rarity = 2,
+  rarity = 'WCCO_crossover_rarity',
   atlas = 'gap_SplitIdol',
   blueprint_compat = false,
   pos = { x = 0, y = 0 },
@@ -885,14 +909,209 @@ SMODS.Joker {
     local numerGAP_SplitIdol, denomGAP_SplitIdol = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'uncommonGAP_SplitIdolProbCheck')
     return {vars = {numerGAP_SplitIdol, denomGAP_SplitIdol } }
   end,
-  in_pool = function(self)
-    return false
+  in_pool = function(self, args)
+    return not args or args.source ~= "sho"
   end,
   calculate = function(self, card, context)
     if context.individual and context.cardarea == G.play and SMODS.pseudorandom_probability(card, "Two Sides", 1, card.ability.extra.odds) then 
       for k, v in pairs(context.full_hand) do 
         context.other_card:set_ability(SMODS.poll_enhancement { guaranteed = true }, nil, true)
       end 
+    end
+  end
+}
+
+SMODS.Atlas {
+  key = 'gap_end_world_normopathy',
+  path = 'GAP_EndWorldNormopathy.png',
+  px = 71,
+  py = 95
+}
+
+SMODS.Joker {
+  key = "gap_end_world_normopathy",
+  loc_txt = {
+    name = "Last Resort Normopathy",
+    text = {
+      "{C:attention}Sell this Joker{} to instantly {C:attention}win the current Blind,{}",
+      "{C:attention,s:1.25}However, sets your money to $0.{}",
+      "{C:inactive}You still receive blind rewards.{}",
+      "{C:inactive}Part of the GHOST and Pals Subpack!{}"
+    }
+  },
+  cost = 0,
+  rarity = 'WCCO_crossover_rarity',
+  atlas = 'gap_end_world_normopathy',
+  blueprint_compat = false,
+  pos = { x = 0, y = 0 },
+  in_pool = function(self, args)
+    return not args or args.source ~= "sho"
+  end,
+  calculate = function(self, card, context) 
+    if context.selling_self then
+      G.GAME.chips = G.GAME.blind.chips
+      G.STATE = G.STATES.HAND_PLAYED
+      G.STATE_COMPLETE = true -- Sets chips to requirement.
+      ease_dollars(- (G.GAME.dollars + 1), true) -- Sets cash to 0.
+      end_round() -- Actually ends the round.
+      return true -- Not sure why you're here, but whatever.
+    end
+  end
+}
+
+SMODS.Atlas {
+  key = 'KPDH_Arya',
+  path = 'KPDH_ShowstopperArya.png',
+  px = 71,
+  py = 95
+}
+
+SMODS.Joker {
+  key = "KPDH_Arya",
+  loc_txt = {
+    name = "Arya, Showstopping Finale",
+    text = {
+      "{X:chips,C:white}x#1#{} {C:chips}Chips{} and {X:mult,C:white}x#2#{} {C:mult}Mult{}",
+      "on your {C:attention}final hand.{}",
+      "{C:inactive}Part of the KPop Demon Hunters Subpack!{}"
+    }
+  },
+  cost = 5,
+  config = { extra = { xchips = 2, xmult = 2 } },
+  loc_vars = function(self, info_queue, card)
+    return { vars = { card.ability.extra.xmult, card.ability.extra.xchips } }
+  end,
+  rarity = 'WCCO_crossover_rarity',
+  atlas = 'KPDH_Arya',
+  blueprint_compat = false,
+  pos = { x = 0, y = 0 },
+  in_pool = function(self, args)
+    return not args or args.source ~= "sho"
+  end,
+  calculate = function(self, card, context)
+    if context.joker_main and G.GAME.current_round.hands_left == 0 then
+      return {
+        xchips = card.ability.extra.xchips,
+        xmult = card.ability.extra.xmult
+      }
+    end
+  end
+}
+
+SMODS.Atlas {
+  key = 'KPDH_Ember',
+  path = 'KPDH_DemonEmber.png',
+  px = 71,
+  py = 95
+}
+
+SMODS.Joker {
+  key = "KPDH_Ember",
+  loc_txt = {
+    name = "Ember, Demon-Human Hybrid",
+    text = {
+      "{C:attention}Scored{} {C:hearts}Hearts{} give both",
+      "{C:chips}+#1# Chips{} and {C:mult}+#2# Mult.{}",
+      "{C:inactive}Part of the KPop Demon Hunters Subpack!{}"
+    }
+  },
+  cost = 5,
+  config = { extra = { chips = 30, mult = 4 } },
+  loc_vars = function(self, info_queue, card)
+    return { vars = { card.ability.extra.chips, card.ability.extra.mult } }
+  end,
+  rarity = 'WCCO_crossover_rarity',
+  atlas = 'KPDH_Ember',
+  blueprint_compat = false,
+  pos = { x = 0, y = 0 },
+  in_pool = function(self, args)
+    return not args or args.source ~= "sho"
+  end,
+  calculate = function(self, card, context)
+    if context.cardarea == G.play and context.other_card and context.other_card:is_suit("Hearts") and not context.repetition then
+      return {
+        chips = card.ability.extra.chips,
+        mult = card.ability.extra.mult
+      }
+    end
+  end
+}
+
+SMODS.Atlas {
+  key = 'KPDH_Hayl',
+  path = 'KPDH_SpiritHayl.png',
+  px = 71,
+  py = 95
+}
+
+SMODS.Joker {
+  key = "KPDH_Hayl",
+  loc_txt = {
+    name = "Hayl, Spirit Booster",
+    text = {
+      "Gives an additional {C:purple}+#1#%{} of your {C:attention}hand's score.{}",
+      "{C:inactive}Part of the KPop Demon Hunters Subpack!{}"
+    }
+  },
+  cost = 5,
+  config = { extra = { score = 10 } },
+  loc_vars = function(self, info_queue, card)
+    return { vars = { card.ability.extra.score } }
+  end,
+  rarity = 'WCCO_crossover_rarity',
+  atlas = 'KPDH_Hayl',
+  blueprint_compat = false,
+  pos = { x = 0, y = 0 },
+  in_pool = function(self, args)
+    return not args or args.source ~= "sho"
+  end,
+  calculate = function(self, card, context)
+    if context.after then
+      G.E_MANAGER:add_event(Event({
+        blocking = false,
+        func = function()
+          card:juice_up(0.3, 0.4)
+          play_sound("gong")
+          G.GAME.chips = G.GAME.chips + ((G.GAME.chips + SMODS.calculate_round_score()) / card.ability.extra.score) -- Credit to metanite64 for this. Stay in school, kids.
+          return true
+        end
+      }))
+    end
+  end
+}
+
+SMODS.Atlas {
+  key = 'KPDH_VenueTicket',
+  path = 'KPDH_WILDCARDTICKET.png',
+  px = 71,
+  py = 95
+}
+
+SMODS.Joker {
+  key = "KPDH_VenueTicket",
+  loc_txt = {
+    name = "W/LDCARD's Ticket",
+    text = {
+      "{C:attention,s:1.25}When all members of W/LDCARD are held...{}",
+      "{C:attention}All scored cards{} gain the {C:attention}Golden{} enhancement.",
+      "{C:inactive}Part of the KPop Demon Hunters Subpack!{}"
+    }
+  },
+  cost = 5,
+  rarity = 'WCCO_crossover_rarity',
+  atlas = 'KPDH_VenueTicket',
+  blueprint_compat = false,
+  pos = { x = 0, y = 0 },
+  in_pool = function(self, args)
+    return not args or args.source ~= "sho"
+  end,
+  calculate = function(self, card, context)
+    if next(SMODS.find_card('j_WCCO_KPDH_Arya')) and next(SMODS.find_card('j_WCCO_KPDH_Ember')) and next(SMODS.find_card('j_WCCO_KPDH_Hayl')) then
+      if context.individual and context.cardarea == G.play then
+        for k, v in pairs(context.full_hand) do 
+          context.other_card:set_ability(G.P_CENTERS.m_WCCO_KPDH_Golden, nil, true)
+        end
+      end
     end
   end
 }
@@ -913,7 +1132,8 @@ SMODS.Joker {
     text = {
       "Gains {C:mult}#2#{} {C:mult}Mult{}",
       "for every {C:attention}scored card that is NOT an Ace or 7{}.",
-      "{C:inactive} (Current Mult:{} {C:mult}#1#{} {C:inactive}Mult){}"
+      "{C:inactive} (Current Mult:{} {C:mult}#1#{} {C:inactive}Mult){}",
+      "{C:inactive}This Joker is challenge exclusive!{}"
     }
   },
   config = { extra = { mult = 0, mult_loss = -1 } },
@@ -961,7 +1181,8 @@ SMODS.Joker {
     name = 'Ember, Eternally Spiteful',
     text = {
       "If {C:attention}scored hand does NOT consist of only{}",
-      "{C:hearts}Heart{} cards, {X:mult,C:white}x#1#{} {C:mult}Mult{}."
+      "{C:hearts}Heart{} cards, {X:mult,C:white}x#1#{} {C:mult}Mult{}.",
+      "{C:inactive}This Joker is challenge exclusive!{}"
     }
   },
   config = { extra = { x_mult = 0 } },
@@ -1010,8 +1231,9 @@ SMODS.Joker {
   loc_txt = {
     name = 'Delta, The Devoid Spirit',
     text = {
-      "{C:attention}+50% Blind Requirement{},",
-      "{C:blue}-#2# hands{} and {C:red}-#1# discard{}."
+      "{C:attention}+25% Blind Requirement{},",
+      "{C:blue}-#2# hands{} and {C:red}-#1# discard{}.",
+      "{C:inactive}This Joker is challenge exclusive!{}"
     }
   },
   rarity = "WCCO_cursed_rarity",
@@ -1037,7 +1259,7 @@ SMODS.Joker {
       G.E_MANAGER:add_event(Event({
         blocking = false,
         func = function()
-          G.GAME.blind.chips = math.floor(G.GAME.blind.chips + G.GAME.blind.chips * 0.5)
+          G.GAME.blind.chips = math.floor(G.GAME.blind.chips + G.GAME.blind.chips * 0.25)
           G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
           return true
         end

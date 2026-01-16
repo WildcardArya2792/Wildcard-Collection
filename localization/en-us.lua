@@ -114,6 +114,17 @@ return {
                 "Those with no reason to persist lose",
                 "themselves in their mania of sorrow..."
             },
+        },
+        v_text = {
+            ch_c_shadow_arya = {
+                "Take {C:attention}Arya, Mistress Of Misfortune{} down by any means!"
+            },
+            ch_c_shadow_ember = {
+                "Take {C:attention}Ember, Eternally Spiteful{} down by any means!"
+            },
+            ch_c_shadow_delta = {
+                "Take {C:attention}Delta, The Devoid Spirit{} down by any means!"
+            }
         }
     },
 }

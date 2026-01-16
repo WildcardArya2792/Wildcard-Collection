@@ -92,3 +92,36 @@ SMODS.Enhancement {
 		end
 	end
 }
+
+SMODS.Atlas {
+    key = "KPDH_Golden",
+    path = "KPDH_GoldenEnhancement.png",
+    px = 71,
+    py = 95
+}
+
+SMODS.Enhancement {
+    key = 'KPDH_Golden',
+    loc_txt = {
+        name = 'Golden',
+        text = {
+            "{X:chips,C:white}x1.15{} {C:chips}Chips{}",
+            "{X:mult,C:white}x1.15{} {C:mult}Mult{}"
+        }
+    },
+    atlas = 'KPDH_Golden',
+    discovered = true,
+    pos = { x = 0, y = 0 },
+    config = { extra = { x_chips = 1.15, x_mult = 1.15 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.x_chips, card.ability.x_mult } }
+    end,
+    calculate = function(self, card, context)
+        if context.main_scoring and context.cardarea == G.play then
+            return {
+                x_chips = card.ability.extra.x_chips,
+                x_mult = card.ability.extra.x_mult   
+            }
+        end
+    end
+}
