@@ -4,16 +4,16 @@ Mod requirements:
 
 **LOVELY Injector (0.8.0 or newer preferred)**
 
-**Talisman (Plausibly. You can maybe get away with running this mod without it.)**
+**Talisman or Amulet (Plausibly. You can maybe get away with running this mod without it.)**
 
 -----------------------------------------------------------------------------------------------------------------------------
 To install the mod:
 
-> Use the green **Code** button and select **Download ZIP**.
+> Use the green **Code** button and select **Download ZIP** IGNORE ALL RELEASES IN THE RELEASES TAB!.
 >
 > Unzip the folder, and put the Wildcard Collection folder into your Balatro mods folder.
 >
-> Make sure your file path is **".../Balatro/mods/Wildcard Collection"**, NOT **".../Balatro/mods/Wildcard Collection/Wildcard Collection"**
+> Make sure your file path is **".../Balatro/mods/Wildcard Collection"**, NOT **".../Balatro/mods/Wildcard Collection/Wildcard Collection"**. This is known as a "nested folder".
 >
 > Launch Balatro
 >
