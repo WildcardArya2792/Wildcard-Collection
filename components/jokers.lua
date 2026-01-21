@@ -757,6 +757,51 @@ SMODS.Joker {
   end
 }
 
+SMODS.Atlas {
+  key = 'OverdriveArya',
+  path = 'OverdriveArya.png',
+  px = 71,
+  py = 95
+}
+
+SMODS.Joker {
+  key = "OverdriveArya",
+  loc_txt = {
+    name = "Overdrive Arya",
+    text = {
+      "For every {C:attention}multiple{} of",
+      "the {C:attention}blind requirement scored{},",
+      "gain {C:money}$#1#{} at {C:attention}end of round{}.",
+      "{C:inactive}(Bonus cannot exceed $10.){}"
+    }
+  },
+  cost = 7,
+  rarity = 3,
+  atlas = 'OverdriveArya',
+  blueprint_compat = false,
+  pos = { x = 0, y = 0 },
+  config = { extra = { dollars = 1 } },
+  loc_vars = function(self, info_queue, card)
+    return { vars = { card.ability.extra.dollars } }
+  end,
+  calculate = function(self, card, context)
+    if context.end_of_round and context.game_over == false and context.main_eval then
+      return {
+        message = "Keep Up!",
+        colour = G.C.MONEY
+      }
+    end
+  end,
+  calc_dollar_bonus = function(self, card)
+    local reward = math.floor(G.GAME.chips / G.GAME.blind.chips)
+    if reward > 10 then
+      return (card.ability.extra.dollars + 10) - 1 -- Don't ask. I hate this solution, but fuck it. We ball.
+    else
+      return (card.ability.extra.dollars + reward) - 1
+    end
+  end
+}
+
 -- Ghost and Pals Pack Jokers
 
 SMODS.Atlas {
@@ -949,12 +994,19 @@ SMODS.Joker {
   end,
   calculate = function(self, card, context) 
     if context.selling_self then
-      G.GAME.chips = G.GAME.blind.chips
-      G.STATE = G.STATES.HAND_PLAYED
-      G.STATE_COMPLETE = true -- Sets chips to requirement.
-      ease_dollars(- (G.GAME.dollars + 1), true) -- Sets cash to 0.
-      end_round() -- Actually ends the round.
-      return true -- Not sure why you're here, but whatever.
+      if G.GAME.blind.in_blind then
+        G.GAME.chips = G.GAME.blind.chips
+        G.STATE = G.STATES.HAND_PLAYED
+        G.STATE_COMPLETE = true -- Sets chips to requirement.
+        ease_dollars(- (G.GAME.dollars + 1), true) -- Sets cash to 0.
+        end_round() -- Actually ends the round.
+        return true -- Not sure why you're here, but whatever.  
+      else
+        return {
+          message = "The core of my design...",
+          colour = G.C.DARK_EDITION
+        }
+      end
     end
   end
 }
@@ -983,7 +1035,7 @@ SMODS.Joker {
   end,
   rarity = 'WCCO_crossover_rarity',
   atlas = 'KPDH_Arya',
-  blueprint_compat = false,
+  blueprint_compat = true,
   pos = { x = 0, y = 0 },
   in_pool = function(self, args)
     return not args or args.source ~= "sho"
@@ -1022,7 +1074,7 @@ SMODS.Joker {
   end,
   rarity = 'WCCO_crossover_rarity',
   atlas = 'KPDH_Ember',
-  blueprint_compat = false,
+  blueprint_compat = true,
   pos = { x = 0, y = 0 },
   in_pool = function(self, args)
     return not args or args.source ~= "sho"
@@ -1060,7 +1112,7 @@ SMODS.Joker {
   end,
   rarity = 'WCCO_crossover_rarity',
   atlas = 'KPDH_Hayl',
-  blueprint_compat = false,
+  blueprint_compat = true,
   pos = { x = 0, y = 0 },
   in_pool = function(self, args)
     return not args or args.source ~= "sho"
