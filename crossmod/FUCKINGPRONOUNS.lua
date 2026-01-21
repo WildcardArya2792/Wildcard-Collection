@@ -158,6 +158,41 @@ SMODS.Joker:take_ownership('WCCO_gap_split_idol', -- object key (class prefix no
     true -- silent | suppresses mod badge
 )
 
+SMODS.Joker:take_ownership('WCCO_gap_end_world_normopathy', -- object key (class prefix not required)
+    { -- table of properties to change from the existing object
+	    pronouns = "unknown"
+    },
+    true -- silent | suppresses mod badge
+)
+
+SMODS.Joker:take_ownership('WCCO_KPDH_Arya', -- object key (class prefix not required)
+    { -- table of properties to change from the existing object
+	    pronouns = "she_her"
+    },
+    true -- silent | suppresses mod badge
+)
+
+SMODS.Joker:take_ownership('WCCO_KPDH_Ember', -- object key (class prefix not required)
+    { -- table of properties to change from the existing object
+	    pronouns = "she_her"
+    },
+    true -- silent | suppresses mod badge
+)
+
+SMODS.Joker:take_ownership('WCCO_KPDH_Hayl', -- object key (class prefix not required)
+    { -- table of properties to change from the existing object
+	    pronouns = "she_her"
+    },
+    true -- silent | suppresses mod badge
+)
+
+SMODS.Joker:take_ownership('WCCO_OverdriveArya', -- object key (class prefix not required)
+    { -- table of properties to change from the existing object
+	    pronouns = "she_her"
+    },
+    true -- silent | suppresses mod badge
+)
+
 SMODS.Consumable:take_ownership('WCCO_spectral_summonarya',
     {
         pronouns = "she_her"
