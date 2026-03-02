@@ -23,7 +23,7 @@ SMODS.Blind {
   boss = { min = 1 },
   calculate = function(self, blind, context)
     if not blind.disabled then
-      if context.debuff_card and context.debuff_card.area ~= G.jokers and (context.debuff_card:is_suit("Clubs") or context.debuff_card:is_suit("Spades")) then
+      if context.debuff_card and context.debuff_card.area ~= G.jokers and (context.debuff_card:is_suit('Clubs', true) or context.debuff_card:is_suit('Spades', true)) then
         blind.triggered = true
           return {
             debuff = true
@@ -58,7 +58,7 @@ SMODS.Blind {
   boss = { min = 1 },
   calculate = function(self, blind, context)
     if not blind.disabled then
-      if context.debuff_card and context.debuff_card.area ~= G.jokers and (context.debuff_card:is_suit("Hearts") or context.debuff_card:is_suit("Diamonds")) then
+      if context.debuff_card and context.debuff_card.area ~= G.jokers and (context.debuff_card:is_suit('Hearts', true) or context.debuff_card:is_suit('Diamonds', true)) then
         blind.triggered = true
           return {
             debuff = true
