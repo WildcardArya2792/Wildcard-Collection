@@ -50,7 +50,7 @@ SMODS.Back {
         text = {
             'Start with all {C:attention}Face Cards{}',
             'converted into {C:attention}Kings{}.',
-            '{C:inactive}AKA: Baron Clickbait 101!{}'
+            '{C:inactive}Just like Grindr!{}'
         }
     },
     pos = { x = 0, y = 0 },
@@ -83,8 +83,8 @@ SMODS.Back {
     loc_txt = {
         name = 'Broken Baron Deck',
         text = {
-            "I don't even need to explain it.",
-            "You're already gonna win. Trust me.",
+            "This is a clickbait deck.",
+            "You're better than this.",
             "{C:attention}#1# Joker slots.{}"
         }
     },
@@ -174,8 +174,8 @@ SMODS.Back {
   apply = function(self, back)
     G.E_MANAGER:add_event(Event({
       func = function()
-        local random_enhancement = pseudorandom(pseudoseed('Upgraded Deck'))
         for k, v in pairs(G.playing_cards) do
+          local random_enhancement = pseudorandom(pseudoseed('Upgraded Deck'))
           if random_enhancement <= 0.33 then
             v:set_ability("m_WCCO_arya_enhancement")
           elseif random_enhancement <= 0.66 then
@@ -183,6 +183,44 @@ SMODS.Back {
           else
             v:set_ability("m_WCCO_delta_enhancement")
           end
+        end
+        return true
+      end
+    }))
+  end
+}
+
+SMODS.Atlas {
+  key = "chaotic_deck",
+  path = "chaotic_deck.png",
+  px = 71,
+  py = 95
+}
+
+SMODS.Back {
+  key = "chaotic_deck",
+  path = "chaotic_deck.png",
+  loc_txt = {
+    name = "Truly Chaotic Deck",
+    text = {
+      "{C:attention}All cards' aspects{} are",
+      "{C:attention}randomized completely!{}",
+      "{C:inactive}This ain't your granny's Erratic Deck!{}"
+    }
+  },
+  pos = { x = 0, y = 0 },
+  unlocked = true,
+  atlas = "chaotic_deck",
+  apply = function(self, back)
+    G.GAME.starting_params.erratic_suits_and_ranks = true -- This is a real thing that VanillaRemade tells you.
+    G.E_MANAGER:add_event(Event({
+      func = function()
+        for k, v in pairs(G.playing_cards) do
+          v:set_ability(SMODS.poll_enhancement { guaranteed = true }, nil, true) -- Gives a random enhancement.
+          local random_edition = SMODS.poll_edition { key = "WCCO_seed", guaranteed = true, no_negative = true } -- Gives a random edition
+          v:set_edition(random_edition)
+          local random_seal = SMODS.poll_seal {key = "WCCO_seed", guaranteed = true} -- Gives a random seal
+          v:set_seal(random_seal)
         end
         return true
       end

@@ -1,5 +1,6 @@
 --- Load all files from the components folder.
 
+assert(SMODS.load_file("components/achievements.lua"))()
 assert(SMODS.load_file("components/blinds.lua"))()
 assert(SMODS.load_file("components/boosters.lua"))()
 assert(SMODS.load_file("components/challenges.lua"))()
@@ -14,14 +15,10 @@ if next(SMODS.find_mod('cardpronouns')) then
     assert(SMODS.load_file("crossmod/FUCKINGPRONOUNS.lua"))() -- https://www.youtube.com/watch?v=VYyPE6EvrqE. Also, trans rights are human rights!
 end
 
-if next(SMODS.find_mod('Albums')) or next(SMODS.find_mod('albums2')) then
+if next(SMODS.find_mod('Albums')) or next(SMODS.find_mod('albums2')) or next(SMODS.find_mod('MusicAlbums3')) then
     assert(SMODS.load_file("crossmod/music_music_rotation.lua"))() -- https://www.youtube.com/watch?v=5-dqH0TRIa4. I'm on that good kush and alcohol.
 end
 
 if next(SMODS.find_mod('Yahimod')) then
     assert(SMODS.load_file("crossmod/is_that_yahamouse.lua"))() -- https://www.youtube.com/watch?v=0jelxNa4dYg. Yahiamice | ecimaihaY
-end
-
-if next(SMODS.find_mod('Oblivion')) then
-    assert(SMODS.load_file("crossmod/oblivious_to_reality.lua"))() -- Sorry, no joke here.
 end

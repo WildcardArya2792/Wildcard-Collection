@@ -171,3 +171,55 @@ SMODS.Back {
         }))
     end
 }
+
+SMODS.Atlas {
+    key = 'kitten_whiskers',
+    path = 'kitten_whiskers.png',
+    px = 71,
+    py = 95
+}
+
+SMODS.Joker {
+    key = 'kitten_whiskers',
+    loc_txt = {
+        name = "Kitten Whiskers",
+        text = {
+            "Gains {C:chips}+#1# chips{} and {C:mult}+#2# Mult{}",
+            "for every {C:attention}Ace or 7 scored{}.",
+            "{C:inactive}(Currently at:{} {C:chips}+#3# Chips{} {C:inactive}and{} {C:mult}+#4# Mult{}{C:inactive}.){}",
+            "{C:inactive}Unlocked via installing Yahimod!{}"
+        }
+    },
+    config = { extra = { chips_gain = 10, mult_gain = 1, chips = 0, mult = 0 } },
+    atlas = 'kitten_whiskers',
+    rarity = 1,
+    cost = 4,
+    pools = { ["Cat"] = true, ["Yahimodaddition"] = true },
+    discovered = true,
+    blueprint_compat = true,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = {key = 'yahimod_catcredit', set = 'Other', vars = { "Wildcard Arya" }}
+        return {
+            vars = { card.ability.extra.chips_gain, card.ability.extra.mult_gain, card.ability.extra.chips, card.ability.extra.mult }
+        }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                chips = card.ability.extra.chips,
+                mult = card.ability.extra.mult
+            }
+        end
+        if context.individual and context.cardarea == G.play then
+            if context.other_card:get_id() == 7 or context.other_card:get_id() == 14 then
+                card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_gain
+                card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
+                return {
+                    message = 'miau',
+                    colour = G.C.MULT,
+                    card = card
+                }
+            end
+        end
+    end
+}

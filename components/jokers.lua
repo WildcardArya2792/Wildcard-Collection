@@ -336,6 +336,7 @@ SMODS.Joker {
   end
 }
 
+
 -- Ember (Common)
 -- Effect: Each scored Heart card gives +3 Mult to Ember.
 
@@ -449,7 +450,7 @@ SMODS.Joker {
       "{C:inactive}(Currently at:{} {C:mult}+#1# Mult.{}{C:inactive}){}"
     }
   },
-  config = { extra = { mult = 0, mult_gain = 10 } },
+  config = { extra = { mult = 0, mult_gain = 5 } },
   rarity = 3,
   cost = 9,
   discovered = true,
@@ -496,7 +497,7 @@ SMODS.Joker {
     }
   },
   atlas = 'legendary_ember',
-  config = { extra = { perma_mult = 20 } },
+  config = { extra = { perma_mult = 10 } },
   rarity = 4,
   cost = 10,
   discovered = true,
@@ -786,10 +787,18 @@ SMODS.Joker {
   end,
   calculate = function(self, card, context)
     if context.end_of_round and context.game_over == false and context.main_eval then
-      return {
-        message = "Keep Up!",
-        colour = G.C.MONEY
-      }
+      local calculated_reward = math.floor((G.GAME.chips / G.GAME.blind.chips) - 1) -- Is this stupid? Yes.
+      if calculated_reward > 10 then
+        return {
+          message = "Hot Shot!",
+          colour = G.C.EDITION
+        }
+      else
+        return {
+          message = "Keep Up!",
+          colour = G.C.MONEY
+        }
+      end
     end
   end,
   calc_dollar_bonus = function(self, card)
@@ -1155,7 +1164,7 @@ SMODS.Joker {
   blueprint_compat = false,
   pos = { x = 0, y = 0 },
   in_pool = function(self, args)
-    return not args or args.source ~= "sho"
+    return next(SMODS.find_card('j_WCCO_KPDH_Arya')) and next(SMODS.find_card('j_WCCO_KPDH_Ember')) and next(SMODS.find_card('j_WCCO_KPDH_Hayl'))
   end,
   calculate = function(self, card, context)
     if next(SMODS.find_card('j_WCCO_KPDH_Arya')) and next(SMODS.find_card('j_WCCO_KPDH_Ember')) and next(SMODS.find_card('j_WCCO_KPDH_Hayl')) then
@@ -1316,6 +1325,67 @@ SMODS.Joker {
           return true
         end
       }))
+    end
+  end
+}
+
+-- Server Request
+
+SMODS.Atlas {
+  key = "balatro_server_request",
+  path = "PLACEHOLDER_TEXTURE.png",
+  px = 71,
+  py = 95
+}
+
+SMODS.Joker {
+  key = "balatro_server_request",
+  loc_txt = {
+    name = "Robby Crocker",
+    text = {
+      "This Joker gains {C:gold}$#1#{} of {C:attention}sell value{} if",
+      "a {C:attention}scoring{} {C:spades}Spade{} {C:attention}and{} {C:hearts}Heart{} {C:attention}card{} are played.",
+      "{C:inactive}(Sell value can only be increased once per hand.){}",
+      "{C:inactive}(This Joker was adopted from: RyanCat){}"
+    }
+  },
+  cost = 4,
+  rarity = 1,
+  atlas = 'balatro_server_request',
+  blueprint_compat = false,
+  pos = { x = 0, y = 0 },
+  config = { extra = { price = 2 } },
+  loc_vars = function(self, info_queue, card)
+    return { vars = { card.ability.extra.price } }
+  end,
+  calculate = function(self, card, context)
+    local effectTriggered = false -- There is 100% a better way to do this. I don't know it yet.
+    local spadeCardScored = false
+    local heartCardScored = false
+
+    if context.joker_main then
+      for k, v in pairs(context.scoring_hand) do
+        if v:is_suit("Hearts") then
+          heartCardScored = true
+        end
+        if v:is_suit("Spades") then
+          spadeCardScored = true
+        end
+      end
+      if (spadeCardScored == true and heartCardScored == true and effectTriggered == false ) then
+        card.ability.extra_value = card.ability.extra_value + card.ability.extra.price
+        card:set_cost()
+        effectTriggered = true
+        spadeCardScored = false
+        heartCardScored = false
+        return {
+          message = "MMM...",
+          colour = G.C.MONEY
+        }
+      end
+    end
+    if context.after then
+      effectTriggered = false
     end
   end
 }

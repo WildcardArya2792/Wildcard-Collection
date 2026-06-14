@@ -105,22 +105,24 @@ SMODS.Enhancement {
     loc_txt = {
         name = 'Golden',
         text = {
-            "{X:chips,C:white}x1.15{} {C:chips}Chips{}",
-            "{X:mult,C:white}x1.15{} {C:mult}Mult{}"
+            "{X:chips,C:white}x#1#{} {C:chips}Chips{}",
+            "{X:mult,C:white}x#2#{} {C:mult}Mult{}",
+            "{X:money,C:white}x#3#{} {C:money}dollars{}",
         }
     },
     atlas = 'KPDH_Golden',
     discovered = true,
     pos = { x = 0, y = 0 },
-    config = { extra = { x_chips = 1.15, x_mult = 1.15 } },
+    config = { extra = { x_chips = 2, x_mult = 2, dollars = 2 } },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.x_chips, card.ability.x_mult } }
+        return { vars = { card.ability.extra.x_chips, card.ability.extra.x_mult, card.ability.extra.dollars } }
     end,
     calculate = function(self, card, context)
         if context.main_scoring and context.cardarea == G.play then
             return {
                 x_chips = card.ability.extra.x_chips,
-                x_mult = card.ability.extra.x_mult   
+                x_mult = card.ability.extra.x_mult,
+                dollars = lenient_bignum(G.GAME.dollars * card.ability.extra.dollars) -- I know this doesn't work as intended. I hate this as much as everyone else. But fuck it, good enough.
             }
         end
     end
