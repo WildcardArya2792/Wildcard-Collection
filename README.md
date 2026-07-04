@@ -4,7 +4,7 @@ Mod requirements:
 
 **LOVELY Injector (0.8.0 or newer preferred)**
 
-**Talisman or Amulet (Plausibly. You can maybe get away with running this mod without it.)**
+**Amulet (Plausibly. You can maybe get away with running this mod without it.)**
 
 -----------------------------------------------------------------------------------------------------------------------------
 To install the mod:
