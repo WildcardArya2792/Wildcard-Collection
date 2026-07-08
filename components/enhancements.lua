@@ -85,7 +85,7 @@ SMODS.Enhancement {
         return { vars = { card.ability.x_chips, card.ability.x_mult } }
     end,
     calculate = function(self, card, context)
-		if context.final_scoring_step and context.cardarea == G.play then
+		if context.before and context.cardarea == G.play then
 			return {
 				level_up = true
 			}
